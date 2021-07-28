@@ -44,7 +44,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Of-Pe-0xq">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -117,7 +117,7 @@
             </objects>
             <point key="canvasLocation" x="2439.375" y="92.957746478873247"/>
         </scene>
-        <!--Reset Data-->
+        <!--Settings-->
         <scene sceneID="pR6-Sv-CB3">
             <objects>
                 <viewController restorationIdentifier="EnterViewController" storyboardIdentifier="EnterViewController" modalPresentationStyle="fullScreen" id="4n0-7u-qFQ" customClass="EnterViewController" customModule="WeightController" customModuleProvider="target" sceneMemberID="viewController">
@@ -134,10 +134,10 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JvE-86-1zN">
                                         <rect key="frame" x="0.0" y="0.0" width="260" height="50"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uks-dl-WZP">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uks-dl-WZP">
                                                 <rect key="frame" x="5" y="5" width="250" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="continue" textContentType="name"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -151,10 +151,10 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XxK-ES-f8w">
                                         <rect key="frame" x="0.0" y="58" width="260" height="50"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Height" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WHI-sQ-UhL">
+                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Height" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WHI-sQ-UhL">
                                                 <rect key="frame" x="5" y="5" width="250" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="continue"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -168,10 +168,10 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7R-cR-yQj">
                                         <rect key="frame" x="0.0" y="116" width="260" height="50"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Weight" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UFD-wr-BU0">
+                                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Weight" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UFD-wr-BU0">
                                                 <rect key="frame" x="5" y="5" width="250" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="continue" textContentType="name"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
@@ -185,7 +185,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qAi-FS-PMe">
                                         <rect key="frame" x="0.0" y="174" width="260" height="50"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVd-BC-Aln">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVd-BC-Aln">
                                                 <rect key="frame" x="5" y="5" width="250" height="40"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -247,7 +247,7 @@
                             <constraint firstItem="spb-X1-taT" firstAttribute="centerX" secondItem="VP8-dC-dvk" secondAttribute="centerX" id="t7J-Ax-X02"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Reset Data" id="hQt-cO-6JI"/>
+                    <navigationItem key="navigationItem" title="Settings" id="hQt-cO-6JI"/>
                     <connections>
                         <outlet property="birthdayButton" destination="gVd-BC-Aln" id="eIO-ab-ZQg"/>
                         <outlet property="greetingsLabel" destination="spb-X1-taT" id="yaZ-Ff-t6P"/>

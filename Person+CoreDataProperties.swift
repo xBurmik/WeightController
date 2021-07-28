@@ -19,7 +19,7 @@ extension Person {
     @NSManaged public var age: Date?
     @NSManaged public var height: Int16
     @NSManaged public var name: String?
-    @NSManaged public var weight: [Int16]?
+    @NSManaged public var weight: [Double]?
 
 }
 

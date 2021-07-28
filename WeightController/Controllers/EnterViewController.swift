@@ -8,17 +8,18 @@
 import UIKit
 import CoreData
 
-class EnterViewController: UIViewController {
+class EnterViewController: UIViewController, UITextFieldDelegate {
     
     var person : Person!
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let birthdayPicker = UIDatePicker()
     var birthday = Date()
-    var weight: [Int16] = []
+    var weight: [Double] = []
     
     @IBOutlet weak var greetingsLabel: UILabel!
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var birthdayButton: UIButton!
+    
     @IBOutlet weak var heightTF: UITextField!
     @IBOutlet weak var weightTF: UITextField!
     @IBOutlet weak var sendButton: UIButton!
@@ -39,6 +40,15 @@ class EnterViewController: UIViewController {
         sendButton.backgroundColor = .lightText
         sendButton.tintColor = .gray
         
+        nameTF.delegate = self
+        nameTF.tag = 0
+        heightTF.delegate = self
+        heightTF.tag = 1
+        weightTF.delegate = self
+        weightTF.tag = 2
+        birthdayButton.tag = 3
+        
+        
         let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
         do {
@@ -54,9 +64,11 @@ class EnterViewController: UIViewController {
                 greetingsLabel.text = "Update your data"
                 nameTF.text = person.name
                 heightTF.text = String(person.height)
-                weightTF.text = String(Int((person.weight?.last)!))
+                weightTF.text = String(Double((person.weight?.last)!))
+                
                 birthdayButton.setTitle(selectedDate, for: .normal)
-                self.birthdayPicker.setDate(person.age!, animated: false)
+                birthdayPicker.setDate(person.age!, animated: false)
+                birthday = birthdayPicker.date
                 birthdayButton.tintColor = .black
                 sendButton.tintColor = .black
             }
@@ -64,7 +76,8 @@ class EnterViewController: UIViewController {
     }
     
     
-    @IBAction func BirthdayInput(_ sender: Any) {
+    @IBAction func BirthdayInput(_ sender: AnyObject? = nil) {
+                
         birthdayPicker.locale = .current
         birthdayPicker.preferredDatePickerStyle = .wheels
         birthdayPicker.datePickerMode = .date
@@ -95,7 +108,7 @@ class EnterViewController: UIViewController {
     
     
     
-    func saveData (name: String, birthday: Date, height: Int, weight: [Int16]){
+    func saveData (name: String, birthday: Date, height: Int, weight: [Double]){
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
         let butchRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
@@ -124,11 +137,32 @@ class EnterViewController: UIViewController {
     }
     
     @IBAction func SendButtonPress(_ sender: Any) {
-        let temp = weightTF.text
-        weight.append(Int16(temp!)!)
-        saveData(name: nameTF.text!, birthday: birthday, height: Int(heightTF.text!)!, weight: weight)
+        let weightSTRReplace = weightTF.text?.replacingOccurrences(of: ",", with: ".", options: .literal)
+        let heightSTRReplace = heightTF.text?.replacingOccurrences(of: ",", with: ".", options: .literal)
+        
+        weight.append(Double(weightSTRReplace!)!)
+        
+        saveData(name: nameTF.text!, birthday: birthday, height: Int(heightSTRReplace!)!, weight: weight)
     }
     
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case nameTF:
+            heightTF.becomeFirstResponder()
+        case heightTF:
+            weightTF.becomeFirstResponder()
+        default:
+            self.view.endEditing(true)
+            BirthdayInput()
+        }
+        return false
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     /*
      // MARK: - Navigation
      
