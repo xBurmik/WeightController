@@ -17,18 +17,20 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationItem .setHidesBackButton(true, animated: true)
+        
+        
         let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
         
         do {
             person = try context.fetch(fetchRequest).last
             if person != nil {
-//                print("person is not empty!")
-//                print(person.name)
-//                print("person age:\(person.age)")
-//                print("person height:\(person.height)")
-//                print("weight count: \(String(describing: person.weight?.count))")
-//                print("person last weight:\(person.weight?.last)")
+                print("person is not empty!")
+                print(person.name!)
+                print("person age: \(String(describing: person.age!))")
+                print("person height:\(person.height)")
+                print("weight count: \(String(describing: person.weight?.count))")
+                print("person last weight:\(String(describing: person.weight?.last))")
             } else{
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let enterVC = storyboard.instantiateViewController(identifier: "EnterViewController")

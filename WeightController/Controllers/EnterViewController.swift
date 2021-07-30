@@ -15,6 +15,7 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
     let birthdayPicker = UIDatePicker()
     var birthday = Date()
     var weight: [Double] = []
+    private lazy var regex = "^([0-9]){1,3}\\.([0-9]){1,2}$"
     
     @IBOutlet weak var greetingsLabel: UILabel!
     @IBOutlet weak var nameTF: UITextField!
@@ -137,8 +138,9 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func SendButtonPress(_ sender: Any) {
-        let weightSTRReplace = weightTF.text?.replacingOccurrences(of: ",", with: ".", options: .literal)
-        let heightSTRReplace = heightTF.text?.replacingOccurrences(of: ",", with: ".", options: .literal)
+//        let pattern = "\\D"
+        let weightSTRReplace = weightTF.text?.replacingOccurrences(of: #"\D"#, with: ".", options: .regularExpression)
+        let heightSTRReplace = heightTF.text?.replacingOccurrences(of: #"\D"#, with: ".", options: .regularExpression)
         
         weight.append(Double(weightSTRReplace!)!)
         
@@ -153,24 +155,18 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
         case heightTF:
             weightTF.becomeFirstResponder()
         default:
-            self.view.endEditing(true)
+//            self.view.endEditing(true)
+            textField.resignFirstResponder()
             BirthdayInput()
         }
-        return false
+        return true
         
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+
     
 }
+
