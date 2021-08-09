@@ -33,7 +33,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             } else{
                 weight = person.weight!
                 weightDates = person.date!
-                print(person.date)
                 
                 let height = (Double(person.height))/100
                 let birthday = person.birthday
