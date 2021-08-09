@@ -10,9 +10,9 @@ import CoreData
 
 class DataModel {
     
-    var person: Person?
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var person: Person?
     
     func fetchData() -> Person? {
         // Get data from base
@@ -25,8 +25,9 @@ class DataModel {
         return person
     }
     
-    func editData (name: String, gender: Bool, birthday: Date, height: Int16, weight: [Double]) {
+    func editData (name: String, gender: Bool, birthday: Date, height: Int16, weight: [Double], dates: [Date]) {
         // Clean entity
+        
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
         let butchRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         do{
@@ -42,7 +43,8 @@ class DataModel {
         personObject.birthday = birthday
         personObject.height = height
         personObject.weight = weight
-        personObject.date?.append(Date())
+        personObject.date = dates
+        
         if context.hasChanges{
             do{
                 try context.save()
@@ -50,7 +52,7 @@ class DataModel {
         }
     }
     
-    func saveWeight(weight: [Double]){
+    func saveWeight(weight: [Double], dates: [Date]){
         // Contains old data
         let fetchResult = fetchData()
         // clean entity
@@ -70,7 +72,7 @@ class DataModel {
         personObject.gender = fetchResult!.gender
             // Wrote new data
         personObject.weight = weight
-        personObject.date?.append(Date())
+        personObject.date = dates
         
         if context.hasChanges{
             do{

@@ -14,9 +14,10 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
     var weight = [Double]()
     var gender = Bool()
     var birthday = Date()
+    var dates = [Date]()
     
     let dataModel = DataModel()
-    let pickerModel = PickerModel()
+    lazy var pickerModel = PickerModel()
     
     @IBOutlet weak var greetingsLabel: UILabel!
     
@@ -48,11 +49,12 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
             heightTF.text = String(person.height)
             weightTF.text = String(person.weight!.last!)
             BirthdayTF.text = pickerModel.getDate()
+            birthday = person.birthday!
             
-            
+            dates = person.date!
             gender = person.gender
             cancelButton.isEnabled = true
-            sendButton.isEnabled = true
+            enableSendButton()
         }
         
         nameTF.delegate = self
@@ -72,6 +74,7 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
     @objc func doneBTNPressed() {
         BirthdayTF.text = pickerModel.getDate()
         birthday = pickerModel.birthdayPicker.date
+        enableSendButton()
         self.view.endEditing(true)
     }
     
@@ -79,23 +82,32 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
         let weightSTRReplace = weightTF.text?.replacingOccurrences(of: #"\D"#, with: ".", options: .regularExpression)
         weight.append(Double(weightSTRReplace!)!)
         let height = Int16(heightTF.text!)!
+        dates.append(Date())
         
-        dataModel.editData(name: nameTF.text!, gender: genderSelector.isOn, birthday: birthday, height: height, weight: weight)
+        dataModel.editData(name: nameTF.text!, gender: genderSelector.isOn, birthday: birthday, height: height, weight: weight, dates: dates)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case nameTF:
             heightTF.becomeFirstResponder()
+            enableSendButton()
         case heightTF:
             weightTF.becomeFirstResponder()
+            enableSendButton()
         case weightTF:
             BirthdayTF.becomeFirstResponder()
+            enableSendButton()
         default:
             textField.resignFirstResponder()
-            sendButton.isEnabled = true
         }
         return true
+    }
+    func enableSendButton() {
+        if nameTF.text != nil && heightTF.text != nil && weightTF.text != nil && BirthdayTF.text != nil {
+            sendButton.setTitleColor(.black, for: .normal)
+            sendButton.isEnabled = true
+        }
     }
     
     @IBAction func GenderSwitch(_ sender: Any) {

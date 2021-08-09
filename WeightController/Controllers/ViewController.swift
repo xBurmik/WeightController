@@ -11,9 +11,9 @@ import CoreData
 class ViewController: UIViewController, UITextFieldDelegate {
     
     var person : Person!
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var BMI = Double()
     var weight = [Double]()
+    var weightDates = [Date]()
     
     let dataModel = DataModel()
     
@@ -24,23 +24,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem .setHidesBackButton(true, animated: true)
+        person = dataModel.fetchData()
         
-        
-        weightTF.delegate = self
-        weightTF.tag = 1
-        resendButton.backgroundColor = .white
-        resendButton.layer.cornerRadius = 5
-        resendButton.tintColor = .black
-        resendButton.setTitle("Resend weight", for: .normal)
-        
-        let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
-        fetchRequest.returnsObjectsAsFaults = false
-        
-        do {
-            person = try context.fetch(fetchRequest).last
-            if person != nil {
+            if person == nil {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let enterVC = storyboard.instantiateViewController(identifier: "EnterViewController")
+                show(enterVC, sender: self)
+            } else{
                 weight = person.weight!
+                weightDates = person.date!
+                print(person.date)
+                
                 let height = (Double(person.height))/100
                 let birthday = person.birthday
                 let lastWeight = person.weight!.last!
@@ -52,27 +46,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.BMI = lastWeight/pow(height, 2)
                 
                 GetBMINormal(gender: person.gender, age: age)
-                
-            } else{
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let enterVC = storyboard.instantiateViewController(identifier: "EnterViewController")
-                show(enterVC, sender: self)
             }
-        }catch{print(error.localizedDescription)}
         
+        weightTF.delegate = self
+        weightTF.tag = 1
+        resendButton.backgroundColor = .white
+        resendButton.layer.cornerRadius = 5
+        resendButton.tintColor = .black
+        resendButton.setTitle("Edit weight", for: .normal)
+        
+        self.navigationItem .setHidesBackButton(true, animated: true)
     }
     
-    
     @IBAction func ResendButtonPressed(_ sender: Any) {
-        
-        
         self.weightTF.text = ""
         self.weightTF.isHidden = false
         self.resendButton.isHidden = true
+        weightTF.becomeFirstResponder()
     }
-    
-    
-    
     
     func GetBMINormal (gender: Bool, age: Int) {
         if(gender) {
@@ -137,20 +128,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let weightSTRReplace = Double((weightTF.text?.replacingOccurrences(of: #"\D"#, with: ".", options: .regularExpression))!)
         weight.append(weightSTRReplace!)
+        weightDates.append(Date())
         
-        dataModel.saveWeight(weight: weight)
-        
+        dataModel.saveWeight(weight: weight, dates: weightDates)
+
         textField.resignFirstResponder()
         textField.isHidden = true
+        resendButton.isHidden = false
+        
+        print(weight)
+        print(weightDates)
         return true
     }
     
-    func SaveWeight (weight: [Double]) {
-        
-        self.weightTF.isHidden = true
-        self.resendButton.isHidden = false
-    }
-    
+
     @IBAction func unwindSegue(unwindSegue:UIStoryboardSegue)
     {
         //returning here
