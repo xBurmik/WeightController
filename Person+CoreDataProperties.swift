@@ -16,11 +16,12 @@ extension Person {
         return NSFetchRequest<Person>(entityName: "Person")
     }
 
-    @NSManaged public var age: Date?
+    @NSManaged public var birthday: Date?
     @NSManaged public var height: Int16
     @NSManaged public var name: String?
     @NSManaged public var weight: [Double]?
-
+    @NSManaged public var gender: Bool
+    @NSManaged public var date: [Date]?
 }
 
 extension Person : Identifiable {
