@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -16,23 +15,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var weightDates = [Date]()
     
     let dataModel = DataModel()
+    let lineChartModel = LineChart()
     
     @IBOutlet weak var weightTF: UITextField!
     @IBOutlet weak var resendButton: UIButton!
+    @IBOutlet weak var lineChartView: UIView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            
         person = dataModel.fetchData()
         
             if person == nil {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let enterVC = storyboard.instantiateViewController(identifier: "EnterViewController")
-                show(enterVC, sender: self)
+                present(enterVC, animated: false, completion: nil)
             } else{
                 weight = person.weight!
                 weightDates = person.date!
+                print("didload dates: \(weightDates)")
                 
                 let height = (Double(person.height))/100
                 let birthday = person.birthday
@@ -43,7 +45,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 let age = ageComponents.year!
                 
                 self.BMI = lastWeight/pow(height, 2)
-                
+                lineChartView.addSubview(lineChartModel.CreateLineChart(size: lineChartView.frame.size, weight: weight, days: person.date!))
                 GetBMINormal(gender: person.gender, age: age)
             }
         
@@ -93,7 +95,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
         
-                
         func calculateForMen(forAge: Int) {
             switch forAge {
               case 0...24:
@@ -125,7 +126,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let weightSTRReplace = Double((weightTF.text?.replacingOccurrences(of: #"\D"#, with: ".", options: .regularExpression))!)
+        guard textField.text?.isEmpty == false else {return true}
+            let weightSTRReplace = Double((weightTF.text?.replacingOccurrences(of: #"\D"#, with: ".", options: .regularExpression))!)
         weight.append(weightSTRReplace!)
         weightDates.append(Date())
         
@@ -135,8 +137,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textField.isHidden = true
         resendButton.isHidden = false
         
-        print(weight)
-        print(weightDates)
+        lineChartView.subviews.first?.removeFromSuperview()
+        lineChartView.addSubview(lineChartModel.CreateLineChart(size: lineChartView.frame.size, weight: weight, days: person.date!))
+        lineChartView.subviews.first?.setNeedsLayout()
         return true
     }
     

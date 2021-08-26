@@ -44,12 +44,21 @@ class DataModel {
         personObject.height = height
         personObject.weight = weight
         personObject.date = dates
+        print("data: \(dates)")
         
         if context.hasChanges{
             do{
                 try context.save()
             }catch{print(error.localizedDescription)}
         }
+    }
+    func clearData() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
+        let butchRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        do {
+            try context.execute(butchRequest)
+            try context.save()
+        } catch{print(error.localizedDescription)}
     }
     
     func saveWeight(weight: [Double], dates: [Date]){

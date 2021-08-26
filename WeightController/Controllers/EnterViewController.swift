@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 
 class EnterViewController: UIViewController, UITextFieldDelegate {
     
@@ -31,6 +30,7 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var girlButton: UIButton!
     
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var resetButton: UIBarButtonItem!
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
@@ -53,7 +53,9 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
             
             dates = person.date!
             gender = person.gender
+            sendButton.setTitle("Update", for: .normal)
             cancelButton.isEnabled = true
+            resetButton.isEnabled = true
             enableSendButton()
         }
         
@@ -71,7 +73,7 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
         genderSelector.isOn = gender
         SetGender(gender: genderSelector.isOn)
     }
-    @objc func doneBTNPressed() {
+    @objc func pickerDonePressed() {
         BirthdayTF.text = pickerModel.getDate()
         birthday = pickerModel.birthdayPicker.date
         enableSendButton()
@@ -82,12 +84,26 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
         let weightSTRReplace = weightTF.text?.replacingOccurrences(of: #"\D"#, with: ".", options: .regularExpression)
         weight.append(Double(weightSTRReplace!)!)
         let height = Int16(heightTF.text!)!
+        dates.removeAll()
         dates.append(Date())
         
         dataModel.editData(name: nameTF.text!, gender: genderSelector.isOn, birthday: birthday, height: height, weight: weight, dates: dates)
     }
+    @IBAction func resetBTNPress(_ sender: Any) {
+        dataModel.clearData()
+        weight.removeAll()
+        nameTF.text = ""
+        heightTF.text = ""
+        weightTF.text = ""
+        BirthdayTF.text = ""
+        sendButton.isEnabled = false
+        sendButton.setTitleColor(.systemGray, for: .normal)
+        cancelButton.isEnabled = false
+        resetButton.isEnabled = false
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            guard textField.text?.isEmpty == false else {return true}
         switch textField {
         case nameTF:
             heightTF.becomeFirstResponder()
@@ -103,7 +119,8 @@ class EnterViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-    func enableSendButton() {
+    
+    private func enableSendButton() {
         if nameTF.text != nil && heightTF.text != nil && weightTF.text != nil && BirthdayTF.text != nil {
             sendButton.setTitleColor(.black, for: .normal)
             sendButton.isEnabled = true
