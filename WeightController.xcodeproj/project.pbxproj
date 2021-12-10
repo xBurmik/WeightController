@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -41,6 +41,7 @@
 		5B8AD8CF26B1266F00D675E3 /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5B8AD8D026B1266F00D675E3 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7B7EABD195608B1BFC333F8F /* Pods-WeightController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeightController.release.xcconfig"; path = "Target Support Files/Pods-WeightController/Pods-WeightController.release.xcconfig"; sourceTree = "<group>"; };
+		BD3E38582763DA7000C85649 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Entry.storyboard; sourceTree = "<group>"; };
 		C869C6A78AC90AE0A26D7624 /* Pods-WeightController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeightController.debug.xcconfig"; path = "Target Support Files/Pods-WeightController/Pods-WeightController.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,15 +74,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5B28FB4B26BAD460008D0337 /* storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				5B2A8013269CA9E700903637 /* Main.storyboard */,
-				5B2A801B269CA9EC00903637 /* LaunchScreen.storyboard */,
-			);
-			path = storyboards;
-			sourceTree = "<group>";
-		};
 		5B2A8001269CA9E700903637 = {
 			isa = PBXGroup;
 			children = (
@@ -105,12 +97,14 @@
 		5B2A800C269CA9E700903637 /* WeightController */ = {
 			isa = PBXGroup;
 			children = (
-				5B2A800D269CA9E700903637 /* AppDelegate.swift */,
-				5B2A800F269CA9E700903637 /* SceneDelegate.swift */,
-				5B2A8024269CB3F800903637 /* Controllers */,
-				5B28FB4926BAD436008D0337 /* DataModel.swift */,
+				BD3E384A2763D98400C85649 /* MainScreen */,
+				BD3E38492763D95E00C85649 /* EntryScreen */,
 				5B1CE5BB26CAAE6700FBEC5D /* LineChart.swift */,
 				5B28FB4C26BAFE7A008D0337 /* PickerModel.swift */,
+				5B28FB4926BAD436008D0337 /* DataModel.swift */,
+				5B2A800D269CA9E700903637 /* AppDelegate.swift */,
+				5B2A800F269CA9E700903637 /* SceneDelegate.swift */,
+				5B2A801B269CA9EC00903637 /* LaunchScreen.storyboard */,
 				5B2A8019269CA9EC00903637 /* Assets.xcassets */,
 				5B2A801E269CA9EC00903637 /* Info.plist */,
 				5B2A8016269CA9E700903637 /* WeightController.xcdatamodeld */,
@@ -118,14 +112,102 @@
 			path = WeightController;
 			sourceTree = "<group>";
 		};
-		5B2A8024269CB3F800903637 /* Controllers */ = {
+		BD3E38492763D95E00C85649 /* EntryScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BD3E38522763DA1A00C85649 /* View */,
+				BD3E38502763DA1A00C85649 /* Interator */,
+				BD3E38512763DA1A00C85649 /* Presenter */,
+				BD3E38532763DA1A00C85649 /* Entity */,
+				BD3E38542763DA1A00C85649 /* Router */,
+			);
+			path = EntryScreen;
+			sourceTree = "<group>";
+		};
+		BD3E384A2763D98400C85649 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BD3E384F2763D9F600C85649 /* View */,
+				BD3E384D2763D9DE00C85649 /* Interator */,
+				BD3E384C2763D9D000C85649 /* Presenter */,
+				BD3E384E2763D9E900C85649 /* Entity */,
+				BD3E384B2763D9C700C85649 /* Router */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		BD3E384B2763D9C700C85649 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		BD3E384C2763D9D000C85649 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		BD3E384D2763D9DE00C85649 /* Interator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interator;
+			sourceTree = "<group>";
+		};
+		BD3E384E2763D9E900C85649 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		BD3E384F2763D9F600C85649 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				5B2A8011269CA9E700903637 /* ViewController.swift */,
-				5B2A8027269CB44800903637 /* EnterViewController.swift */,
-				5B28FB4B26BAD460008D0337 /* storyboards */,
+				5B2A8013269CA9E700903637 /* Main.storyboard */,
 			);
-			path = Controllers;
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD3E38502763DA1A00C85649 /* Interator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interator;
+			sourceTree = "<group>";
+		};
+		BD3E38512763DA1A00C85649 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		BD3E38522763DA1A00C85649 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5B2A8027269CB44800903637 /* EnterViewController.swift */,
+				BD3E38572763DA7000C85649 /* Entry.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BD3E38532763DA1A00C85649 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		BD3E38542763DA1A00C85649 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,7 +247,7 @@
 				};
 			};
 			buildConfigurationList = 5B2A8005269CA9E700903637 /* Build configuration list for PBXProject "WeightController" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -272,6 +354,14 @@
 				5B2A801C269CA9EC00903637 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		BD3E38572763DA7000C85649 /* Entry.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD3E38582763DA7000C85649 /* Base */,
+			);
+			name = Entry.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -402,6 +492,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W24JGPBXUW;
 				INFOPLIST_FILE = WeightController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -422,6 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W24JGPBXUW;
 				INFOPLIST_FILE = WeightController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
